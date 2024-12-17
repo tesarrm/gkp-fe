@@ -2277,8 +2277,13 @@
 
 
       // Setel nilai rating dan jumlah ulasan ke elemen
-      ratingElement.innerHTML = `${rataRataRating.rataRata} <span>&#9733;</span>`;
-      ulasanElement.innerHTML = `${rataRataRating.jumlahTestimoni} ulasan&nbsp;&nbsp;&nbsp;&nbsp;`;
+      // ratingElement.innerHTML = `${rataRataRating.rataRata || 0} <span>&#9733;</span>`;
+      // ulasanElement.innerHTML = `${rataRataRating.jumlahTestimoni} ulasan&nbsp;&nbsp;&nbsp;&nbsp;`;
+      let rating = Number(rataRataRating.rataRata);
+      let jumlahUlasan = Number(rataRataRating.jumlahTestimoni);
+
+      ratingElement.innerHTML = `${isNaN(rating) ? 0 : rating} <span>&#9733;</span>`;
+      ulasanElement.innerHTML = `${isNaN(jumlahUlasan) ? 0 : jumlahUlasan} ulasan&nbsp;&nbsp;&nbsp;&nbsp;`;
     })
     .catch((error) => {
       console.error("Error fetching kelas:", error);
@@ -2320,33 +2325,76 @@
         container.innerHTML = "";
 
         // Iterasi data dari API
-        data.message.forEach((item) => {
-          const rating = item.rating || 0; // Default rating 0 jika tidak ada
-          const testimoniText = item.testimoni || "Tidak ada testimoni"; // Default jika kosong
-          const nama = item.nama || "Tidak ada nama"; // Default jika kosong
+        // data.message.forEach((item) => {
+        //   const rating = item.rating || 0; // Default rating 0 jika tidak ada
+        //   const testimoniText = item.testimoni || "Tidak ada testimoni"; // Default jika kosong
+        //   const nama = item.nama || "Tidak ada nama"; // Default jika kosong
 
-          // Generate HTML untuk setiap testimoni
-          const testimoniHTML = `
-            <div class="col col-d-6 col-t-6 col-m-12 border-line-h">
-              <div class="service-item">
-                <div class="name">
-                  <span>${nama}</span>
-                </div>
-                <div id="rating" class="star-rating2" style="justify-content: center;">
-                  ${generateStars(rating)}
-                </div>
-                <div class="desc">
-                  <div>
-                    <p>${testimoniText}</p>
-                  </div>
-                </div>
-              </div>
+        //   // Generate HTML untuk setiap testimoni
+        //   const testimoniHTML = `
+        //     <div class="col col-d-6 col-t-6 col-m-12 border-line-h">
+        //       <div class="service-item">
+        //         <div class="name">
+        //           <span>${nama}</span>
+        //         </div>
+        //         <div id="rating" class="star-rating2" style="justify-content: center;">
+        //           ${generateStars(rating)}
+        //         </div>
+        //         <div class="desc">
+        //           <div>
+        //             <p>${testimoniText}</p>
+        //           </div>
+        //         </div>
+        //       </div>
+        //     </div>
+        //   `;
+
+        //   // Tambahkan testimoni ke dalam container
+        //   container.innerHTML += testimoniHTML;
+        // });
+
+        // Periksa apakah data.message memiliki testimoni
+if (!data.message || data.message.length === 0) {
+  // Jika tidak ada testimoni
+  container.innerHTML = `
+    <div class="col col-12">
+      <div class="service-item" style="text-align: center;">
+        <p style="font-weight: bold;">Testimoni tidak ada</p>
+      </div>
+    </div>
+  `;
+} else {
+  // Iterasi data dari API
+  data.message.forEach((item) => {
+    const rating = item.rating || 0; // Default rating 0 jika tidak ada
+    const testimoniText = item.testimoni || "Tidak ada testimoni"; // Default jika kosong
+    const nama = item.nama || "Tidak ada nama"; // Default jika kosong
+
+    // Generate HTML untuk setiap testimoni
+    const testimoniHTML = `
+      <div class="col col-d-6 col-t-2 col-m-12 border-line-h">
+        <div class="service-item">
+          <div class="name">
+            <span>${nama}</span>
+          </div>
+          <div id="rating" class="star-rating2" style="justify-content: center;">
+            ${generateStars(rating)}
+          </div>
+          <div class="desc">
+            <div>
+              <p>${testimoniText}</p>
             </div>
-          `;
+          </div>
+        </div>
+      </div>
+    `;
 
-          // Tambahkan testimoni ke dalam container
-          container.innerHTML += testimoniHTML;
-        });
+    // Tambahkan testimoni ke dalam container
+    container.innerHTML += testimoniHTML;
+  });
+}
+
+
       })
       .catch((error) => {
         console.error("Error fetching testimoni:", error);
