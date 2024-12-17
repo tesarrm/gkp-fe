@@ -955,13 +955,43 @@
   <script
     src="./assets/wp-emoji-release.min.js.download"
     defer=""></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Tom Select CSS -->
+<link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
+
+<!-- Tom Select JS -->
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+<style>
+  /* Atur ukuran font untuk dropdown Tom Select */
+.ts-control, .ts-dropdown, .ts-dropdown .option {
+  font-size: 18px; /* Ganti sesuai kebutuhan */
+}
+
+/* Jika ingin mengatur font pada input Tom Select */
+.ts-wrapper.single .ts-control input {
+  font-size: 18px;
+}
+
+/* Mengatur font placeholder */
+.ts-control::placeholder {
+  font-size: 18px;
+  color: #aaa; /* Warna placeholder opsional */
+}
+</style>
+
 </head>
 
 <body
   class="home page-template page-template-template-elementor-builder page-template-template-elementor-builder-php page page-id-30 theme-ryancv woocommerce-js elementor-default elementor-kit-8 elementor-page elementor-page-30 e--ua-blink e--ua-chrome e--ua-webkit"
   data-elementor-device-mode="desktop">
+
+  
   <div class="page page_wrap one-page-enabled theme-style-blured theme-style-blured theme-style-cyber">
     <!-- Preloader -->
+    
     <div class="preloader" style="display: none;">
       <div class="centrize full-width">
         <div class="vertical-center">
@@ -1534,6 +1564,10 @@
                                                 >
                                                   <option value="" disabled selected>Pilih Kelas</option>
                                                 </select>
+
+
+
+
                                               </span>
                                             </p>
                                           </div>
@@ -1598,6 +1632,8 @@
                                           <div class="group-val">
                                             <p>
                                               <span class="wpcf7-form-control-wrap" data-name="your-name">
+                                                <!--
+                                                
                                                 <select 
                                                   class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" 
                                                   aria-required="true" 
@@ -1605,6 +1641,14 @@
                                                   name="guru"
                                                 >
                                                   <option value="" disabled selected>Pilih Nama</option>
+                                                </select>
+                                                -->
+
+                                                <select 
+                                                  id="guru-select" 
+                                                  placeholder="Pilih Nama" name="guru"
+                                                  name="guru"
+                                                >
                                                 </select>
                                               </span>
                                             </p>
@@ -1718,6 +1762,33 @@
       </div>
     </div>
   </div> <!-- bslthemes.com buttons html begin -->
+
+<script>
+
+  fetch(`https://gkp-be.techtitan.cloud/api/resource/Guru?fields=["*"]&limit_page_length=0&order_by=nama asc`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+    const guruOptions = data.data.map((guru) => ({
+      value: guru.name,
+      text: guru.nama,
+    }));
+
+    new TomSelect("#guru-select", {
+      options: guruOptions,
+      placeholder: "Pilih Nama",
+      allowEmptyOption: true,
+      className: 'custom-font-size'
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching guru:", error);
+  });
+
+
+</script>
+
+  
   <script
     type="text/javascript">const lazyloadRunObserver = () => {
         const lazyloadBackgrounds = document.querySelectorAll(`.e-con.e-parent:not(.e-lazyloaded)`); const lazyloadBackgroundObserver = new IntersectionObserver((entries) => {
@@ -1918,7 +1989,7 @@
     // api 
     // ==============
 
-  const kelasApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Kelas";
+  const kelasApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Kelas?limit_page_length=0";
   const siswaApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Siswa";
   const guruApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Guru";
   const kelasSelect = document.querySelector('.wpcf7-form-control[name="kelas"]');
@@ -1957,7 +2028,7 @@
 
     const encodedKelas = encodeURIComponent(selectedKelas);
     // Fetch data siswa based on selected kelas
-    fetch(`${siswaApiUrl}?fields=[%22*%22]&filters=[[%22kelas%22,%22=%22,%22${encodedKelas}%22]]&`)
+    fetch(`${siswaApiUrl}?fields=[%22*%22]&filters=[[%22kelas%22,%22=%22,%22${encodedKelas}%22]]&limit_page_length=0`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -1982,7 +2053,7 @@
       });
   });
 
-  fetch(`${guruApiUrl}?fields=["*"]`)
+  fetch(`${guruApiUrl}?fields=["nama"]&limit_page_length=0&order_by=nama asc`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
