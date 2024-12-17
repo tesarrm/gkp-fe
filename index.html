@@ -1916,9 +1916,9 @@
     // api 
     // ==============
 
-  const kelasApiUrl = "http://gkp.localhost:8005/api/resource/Kelas";
-  const siswaApiUrl = "http://gkp.localhost:8005/api/resource/Siswa";
-  const guruApiUrl = "http://gkp.localhost:8005/api/resource/Guru";
+  const kelasApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Kelas";
+  const siswaApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Siswa";
+  const guruApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Guru";
   const kelasSelect = document.querySelector('.wpcf7-form-control[name="kelas"]');
   const siswaSelect = document.querySelector('.wpcf7-form-control[name="siswa"]'); 
   const guruSelect = document.querySelector('.wpcf7-form-control[name="guru"]'); 
@@ -2055,7 +2055,7 @@
     };
 
     // Kirim data ke API
-    // fetch("http://gkp.localhost:8005/api/resource/Testimoni", {
+    // fetch("https://gkp-be.techtitan.cloud/api/resource/Testimoni", {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -2072,7 +2072,7 @@
     //     alert("Gagal mengirim data!");
     //   });
 
-    fetch("http://gkp.localhost:8005/api/resource/Testimoni", {
+    fetch("https://gkp-be.techtitan.cloud/api/resource/Testimoni", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -2141,7 +2141,7 @@
     };
 
     // Kirim data ke API
-    fetch("http://gkp.localhost:8005/api/resource/Testimoni", {
+    fetch("https://gkp-be.techtitan.cloud/api/resource/Testimoni", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -2218,7 +2218,7 @@
     console.log("Data yang akan dikirim:", payload);
 
     // Kirim data ke API
-    fetch("http://gkp.localhost:8005/api/resource/Testimoni", {
+    fetch("https://gkp-be.techtitan.cloud/api/resource/Testimoni", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -2260,7 +2260,7 @@
       return { rataRata: rataRataFixed, jumlahTestimoni };
   }
 
-  const ratingApiUrl = "http://gkp.localhost:8005/api/resource/Testimoni?fields=[%22rating%22]";
+  const ratingApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Testimoni?fields=[%22rating%22]";
 
   fetch(ratingApiUrl)
     .then((response) => {
@@ -2289,7 +2289,7 @@
   // testimoni 10 data terakhir 
   // ==================
 
-    const testimoniApiUrl = "http://gkp.localhost:8005/api/method/gkp.api.custom_api.get_testimoni_summary2";
+    const testimoniApiUrl = "https://gkp-be.techtitan.cloud/api/method/gkp.api.custom_api.get_testimoni_summary2";
 
     // fetch(testimoniApiUrl)
     //   .then((response) => {
@@ -2375,7 +2375,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const infoContainer = document.getElementById("info-container");
 
   // Fetch data dari API
-  fetch("http://gkp.localhost:8005/api/method/gkp.api.custom_api.get_testimoni_summary")
+  fetch("https://gkp-be.techtitan.cloud/api/method/gkp.api.custom_api.get_testimoni_summary")
     .then((response) => response.json())
     .then((data) => {
       const testimoniData = data.message;
