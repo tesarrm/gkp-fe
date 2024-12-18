@@ -2355,7 +2355,7 @@
       return { rataRata: rataRataFixed, jumlahTestimoni };
   }
 
-  const ratingApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Testimoni?fields=[%22rating%22]";
+  const ratingApiUrl = "https://gkp-be.techtitan.cloud/api/resource/Testimoni?fields=[%22rating%22]&limit_page_length=0";
 
   fetch(ratingApiUrl)
     .then((response) => {
