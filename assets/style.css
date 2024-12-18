@@ -334,9 +334,10 @@
   color: #ccc;
 }
 
-.star-rating .star.active,
-.star-rating .star:hover,
-.star-rating .star:hover ~ .star {
+.star-rating .star.active
+/* .star-rating .star:hover, */
+/* .star-rating .star:hover ~ .star */
+ {
   color: #ffcc00;
 }
 

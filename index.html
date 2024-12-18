@@ -113,7 +113,7 @@
   <link rel="stylesheet" id="elementor-post-8-css"
     href="./assets/autoptimize_single_30614a4c8ffcb83f32c966cdd7b32d2d.css"
     type="text/css" media="all">
-  // <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <script type="text/javascript"
     src="./assets/jquery.min.js.download"
     id="jquery-core-js"></script>
@@ -1837,7 +1837,7 @@
   <!-- cursor -->
   <div class="cursor" style="transform: translate3d(1489px, -15px, 0px);"></div> <!-- custom footer -->
   <div class="custom-footer">
-    <p>© 2023 Folmulir Pengunjung GKP by tesarrm.techtitan.cloud. All rights reserved.</p>
+    <p>© 2023 Folmulir Pengunjung GKP by <strong><a  target="_blank" href="https://tesarrm.techtitan.cloud/">tesarrm.techtitan.cloud</a></strong> All rights reserved.</p>
   </div>
   <script defer=""
     src="./assets/autoptimize_029e35be55ee32b39af573e2ff011c74.js.download"></script>
@@ -1955,37 +1955,52 @@
       const ratingInput = document.getElementById('rating-value');
 
       stars.forEach(star => {
-        star.addEventListener('click', () => {
-          const value = star.getAttribute('data-value');
-          ratingInput.value = value;
+        // star.addEventListener('click', () => {
+        //   const value = star.getAttribute('data-value');
+        //   ratingInput.value = value;
 
-          // Tambahkan kelas 'active' ke bintang yang sesuai
-          stars.forEach(s => s.classList.remove('active'));
-          star.classList.add('active');
-          star.previousElementSibling?.classList.add('active');
-        });
+        //   // Tambahkan kelas 'active' ke bintang yang sesuai
+        //   stars.forEach(s => s.classList.remove('active'));
+        //   star.classList.add('active');
+        //   star.previousElementSibling?.classList.add('active');
+        // });
+
+  star.addEventListener('click', () => {
+    const value = star.getAttribute('data-value');
+    ratingInput.value = value;
+
+    // Hapus kelas 'active' dari semua bintang
+    stars.forEach(s => s.classList.remove('active'));
+
+    // Tambahkan kelas 'active' ke bintang yang sesuai dan semua sebelumnya
+    stars.forEach(s => {
+      if (s.getAttribute('data-value') <= value) {
+        s.classList.add('active');
+      }
+    });
+  });
 
         // Highlight bintang saat hover
-        star.addEventListener('mouseover', () => {
-          stars.forEach(s => s.classList.remove('active'));
-          star.classList.add('active');
-          let prev = star.previousElementSibling;
-          while (prev) {
-            prev.classList.add('active');
-            prev = prev.previousElementSibling;
-          }
-        });
+        // star.addEventListener('mouseover', () => {
+        //   stars.forEach(s => s.classList.remove('active'));
+        //   star.classList.add('active');
+        //   let prev = star.previousElementSibling;
+        //   while (prev) {
+        //     prev.classList.add('active');
+        //     prev = prev.previousElementSibling;
+        //   }
+        // });
 
         // Reset highlight saat mouse keluar
-        star.parentElement.addEventListener('mouseleave', () => {
-          stars.forEach(s => s.classList.remove('active'));
-          const selectedValue = ratingInput.value;
-          stars.forEach(s => {
-            if (s.getAttribute('data-value') <= selectedValue) {
-              s.classList.add('active');
-            }
-          });
-        });
+        // star.parentElement.addEventListener('mouseleave', () => {
+        //   stars.forEach(s => s.classList.remove('active'));
+        //   const selectedValue = ratingInput.value;
+        //   stars.forEach(s => {
+        //     if (s.getAttribute('data-value') <= selectedValue) {
+        //       s.classList.add('active');
+        //     }
+        //   });
+        // });
       });
 
 
